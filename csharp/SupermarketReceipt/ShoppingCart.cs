@@ -49,11 +49,8 @@ namespace SupermarketReceipt
                 var unitPrice = catalog.GetUnitPrice(product);
                 Discount discount = null;
                 var minimalQuantityForDiscount = 1;
-                if (offer.OfferType == SpecialOfferType.ThreeForTwo)
-                {
-                    minimalQuantityForDiscount = 3;
-                }
-                else if (offer.OfferType == SpecialOfferType.TwoForAmount)
+
+                if (offer.OfferType == SpecialOfferType.TwoForAmount)
                 {
                     minimalQuantityForDiscount = 2;
                     if (quantityAsInt >= 2)
@@ -64,17 +61,31 @@ namespace SupermarketReceipt
                     }
                 }
 
-                if (offer.OfferType == SpecialOfferType.FiveForAmount) minimalQuantityForDiscount = 5;
-                var numberOfXs = quantityAsInt / minimalQuantityForDiscount;
-                if (offer.OfferType == SpecialOfferType.ThreeForTwo && quantityAsInt > 2)
+                if (offer.OfferType == SpecialOfferType.FiveForAmount)
                 {
-                    var discountAmount = quantity * unitPrice - (numberOfXs * 2 * unitPrice + quantityAsInt % 3 * unitPrice);
-                    discount = new Discount(product, "3 for 2", -discountAmount);
+                    minimalQuantityForDiscount = 5;
                 }
 
-                if (offer.OfferType == SpecialOfferType.TenPercentDiscount) discount = new Discount(product, offer.Argument + "% off", -quantity * unitPrice * offer.Argument / 100.0);
+
+                if (offer.OfferType == SpecialOfferType.ThreeForTwo)
+                {
+                    minimalQuantityForDiscount = 3;
+                    var numberOfXs = quantityAsInt / minimalQuantityForDiscount;
+                    if (quantityAsInt > 2)
+                    {
+                        var discountAmount = quantity * unitPrice - (numberOfXs * 2 * unitPrice + quantityAsInt % 3 * unitPrice);
+                        discount = new Discount(product, "3 for 2", -discountAmount);
+                    }
+                }
+
+                if (offer.OfferType == SpecialOfferType.TenPercentDiscount)
+                {
+                    discount = new Discount(product, offer.Argument + "% off", -quantity * unitPrice * offer.Argument / 100.0);
+                }
+
                 if (offer.OfferType == SpecialOfferType.FiveForAmount && quantityAsInt >= 5)
                 {
+                    var numberOfXs = quantityAsInt / minimalQuantityForDiscount;
                     var discountTotal = unitPrice * quantity - (offer.Argument * numberOfXs + quantityAsInt % 5 * unitPrice);
                     discount = new Discount(product, minimalQuantityForDiscount + " for " + offer.Argument, -discountTotal);
                 }

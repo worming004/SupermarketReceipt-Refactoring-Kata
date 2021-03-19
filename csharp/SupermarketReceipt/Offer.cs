@@ -21,5 +21,10 @@ namespace SupermarketReceipt
 
         public SpecialOfferType OfferType { get; }
         public double Argument { get; }
+
+        public Discount ApplyDiscount(double quantity)
+        {
+            return null;
+        }
     }
 }
