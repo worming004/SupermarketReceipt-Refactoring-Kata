@@ -61,12 +61,6 @@ namespace SupermarketReceipt
                     }
                 }
 
-                if (offer.OfferType == SpecialOfferType.FiveForAmount)
-                {
-                    minimalQuantityForDiscount = 5;
-                }
-
-
                 if (offer.OfferType == SpecialOfferType.ThreeForTwo)
                 {
                     minimalQuantityForDiscount = 3;
@@ -85,9 +79,7 @@ namespace SupermarketReceipt
 
                 if (offer.OfferType == SpecialOfferType.FiveForAmount && quantityAsInt >= 5)
                 {
-                    var numberOfXs = quantityAsInt / minimalQuantityForDiscount;
-                    var discountTotal = unitPrice * quantity - (offer.Argument * numberOfXs + quantityAsInt % 5 * unitPrice);
-                    discount = new Discount(product, minimalQuantityForDiscount + " for " + offer.Argument, -discountTotal);
+                    discount = offer.ApplyDiscount(quantity);
                 }
 
                 if (discount != null)
