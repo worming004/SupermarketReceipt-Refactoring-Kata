@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SupermarketReceipt
 {
@@ -14,7 +15,8 @@ namespace SupermarketReceipt
 
         public void AddSpecialOffer(SpecialOfferType offerType, Product product, double argument)
         {
-            if (offerType.Equals(SpecialOfferType.FiveForAmount))
+            SpecialOfferType[] managedSpecialOfferTypesWithNew = new SpecialOfferType[] { SpecialOfferType.FiveForAmount, SpecialOfferType.TwoForAmount };
+            if (managedSpecialOfferTypesWithNew.Contains(offerType))
             {
                 _offers[product] = Offer.New(offerType, _catalog, product, argument);
             }
