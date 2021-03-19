@@ -35,6 +35,7 @@ namespace SupermarketReceipt
                 case SpecialOfferType.TenPercentDiscount:
                     return new TenPercentOffer(catalog, product, argument);
                 case SpecialOfferType.ThreeForTwo:
+                    return new ThreeForTwoOffer(catalog, product, argument);
                 default:
                     return null;
             }

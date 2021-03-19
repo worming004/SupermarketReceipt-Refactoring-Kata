@@ -11,6 +11,9 @@
         public override Discount ApplyDiscount(double quantity)
         {
             const int minimalQuantityForDiscount = 5;
+            if (quantity < 5)
+                return null;
+
             var unitPrice = _catalog.GetUnitPrice(_product);
             var quantityAsInt = (int)quantity;
             var numberOfXs = quantityAsInt / minimalQuantityForDiscount;

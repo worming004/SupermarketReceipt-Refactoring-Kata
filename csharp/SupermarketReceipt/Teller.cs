@@ -15,15 +15,7 @@ namespace SupermarketReceipt
 
         public void AddSpecialOffer(SpecialOfferType offerType, Product product, double argument)
         {
-            SpecialOfferType[] managedSpecialOfferTypesWithNew = new SpecialOfferType[] { SpecialOfferType.FiveForAmount, SpecialOfferType.TwoForAmount, SpecialOfferType.TenPercentDiscount };
-            if (managedSpecialOfferTypesWithNew.Contains(offerType))
-            {
-                _offers[product] = Offer.New(offerType, _catalog, product, argument);
-            }
-            else
-            {
-                _offers[product] = new Offer(offerType, _catalog, product, argument);
-            }
+            _offers[product] = Offer.New(offerType, _catalog, product, argument);
         }
 
         public Receipt ChecksOutArticlesFrom(ShoppingCart theCart)

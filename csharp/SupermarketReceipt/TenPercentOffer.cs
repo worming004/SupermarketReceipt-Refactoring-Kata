@@ -10,12 +10,9 @@
 
         public override Discount ApplyDiscount(double quantity)
         {
-            const int minimalQuantityForDiscount = 5;
             var unitPrice = _catalog.GetUnitPrice(_product);
             var quantityAsInt = (int)quantity;
-            var numberOfXs = quantityAsInt / minimalQuantityForDiscount;
-            var discountTotal = unitPrice * quantity - (this.Argument * numberOfXs + quantityAsInt % 5 * unitPrice);
-            return new Discount(_product, minimalQuantityForDiscount + " for " + this.Argument, -discountTotal);
+            return new Discount(_product, this.Argument + "% off", -quantityAsInt * unitPrice * this.Argument / 100.0);
         }
     }
 }

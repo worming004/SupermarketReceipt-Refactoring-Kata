@@ -46,41 +46,10 @@ namespace SupermarketReceipt
             if (offers.ContainsKey(product))
             {
                 var offer = offers[product];
-                var unitPrice = catalog.GetUnitPrice(product);
-                Discount discount = null;
-                var minimalQuantityForDiscount = 1;
-
-                if (offer.OfferType == SpecialOfferType.TwoForAmount)
-                {
-                    minimalQuantityForDiscount = 2;
-                    if (quantityAsInt >= 2)
-                    {
-                        var total = offer.Argument * (quantityAsInt / minimalQuantityForDiscount) + quantityAsInt % 2 * unitPrice;
-                        var discountN = unitPrice * quantity - total;
-                        discount = new Discount(product, "2 for " + offer.Argument, -discountN);
-                    }
-                }
-
-                if (offer.OfferType == SpecialOfferType.ThreeForTwo)
-                {
-                    minimalQuantityForDiscount = 3;
-                    var numberOfXs = quantityAsInt / minimalQuantityForDiscount;
-                    if (quantityAsInt > 2)
-                    {
-                        var discountAmount = quantity * unitPrice - (numberOfXs * 2 * unitPrice + quantityAsInt % 3 * unitPrice);
-                        discount = new Discount(product, "3 for 2", -discountAmount);
-                    }
-                }
-
-                if (offer.OfferType == SpecialOfferType.TenPercentDiscount)
-                {
-                    discount = new Discount(product, offer.Argument + "% off", -quantity * unitPrice * offer.Argument / 100.0);
-                }
-
-                if (offer.OfferType == SpecialOfferType.FiveForAmount && quantityAsInt >= 5)
-                {
-                    discount = offer.ApplyDiscount(quantity);
-                }
+                if (offer is null)
+                    return;
+               
+                var discount = offer.ApplyDiscount(quantity);
 
                 if (discount != null)
                     receipt.AddDiscount(discount);
