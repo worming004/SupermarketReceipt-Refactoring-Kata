@@ -16,7 +16,7 @@
             var numberOfXs = quantityAsInt / minimalQuantityForDiscount;
             if (quantityAsInt >= minimalQuantityForDiscount)
             {
-                var discountAmount = numberOfXs * unitPrice;
+                var discountAmount = quantity * unitPrice - (numberOfXs * 2 * unitPrice + quantityAsInt % 3 * unitPrice);
                 return new Discount(_product, "3 for 2", -discountAmount);
             }
 

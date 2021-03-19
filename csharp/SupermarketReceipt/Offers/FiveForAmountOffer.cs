@@ -13,7 +13,6 @@
 
         public override Discount ApplyDiscount(double quantity)
         {
-
             if (quantity < minimalQuantityForDiscount)
                 return null;
 

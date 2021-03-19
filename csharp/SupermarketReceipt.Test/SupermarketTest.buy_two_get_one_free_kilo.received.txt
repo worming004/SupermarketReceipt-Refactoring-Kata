@@ -1,0 +1,6 @@
+﻿apples                              1.99
+apples                              1.99
+apples                              1.99
+3 for 2(apples)                    -1.99
+
+Total:                              3.98
