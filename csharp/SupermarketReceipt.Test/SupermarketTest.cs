@@ -82,6 +82,21 @@ namespace SupermarketReceipt.Test
         }
 
         [Fact]
+        public void buy_seven_get_two_free()
+        {
+            _theCart.AddItem(_toothbrush);
+            _theCart.AddItem(_toothbrush);
+            _theCart.AddItem(_toothbrush);
+            _theCart.AddItem(_toothbrush);
+            _theCart.AddItem(_toothbrush);
+            _theCart.AddItem(_toothbrush);
+            _theCart.AddItem(_toothbrush);
+            _teller.AddSpecialOffer(SpecialOfferType.ThreeForTwo, _toothbrush, _catalog.GetUnitPrice(_toothbrush));
+            Receipt receipt = _teller.ChecksOutArticlesFrom(_theCart);
+            Approvals.Verify(new ReceiptPrinter(40).PrintReceipt(receipt));
+        }
+
+        [Fact]
         public void loose_weight_product()
         {
             _theCart.AddItemQuantity(_apples, .5);

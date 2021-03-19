@@ -2,7 +2,11 @@
 {
     public class TwoForAmountOffer : Offer
     {
-        public TwoForAmountOffer(SupermarketCatalog catalog, Product product, double argument) : base(SpecialOfferType.TwoForAmount, catalog, product, argument) { }
+        private double _amount;
+        public TwoForAmountOffer(SupermarketCatalog catalog, Product product, double argument) : base(SpecialOfferType.TwoForAmount, catalog, product)
+        {
+            this._amount = argument;
+        }
         public override Discount ApplyDiscount(double quantity)
         {
             const int minimalQuantityForDiscount = 2;
@@ -10,9 +14,9 @@
             var quantityAsInt = (int)quantity;
             if (quantityAsInt >= 2)
             {
-                var total = this.Argument * (quantityAsInt / minimalQuantityForDiscount) + quantityAsInt % 2 * unitPrice;
+                var total = this._amount * (quantityAsInt / minimalQuantityForDiscount) + quantityAsInt % 2 * unitPrice;
                 var discountN = unitPrice * quantity - total;
-                return new Discount(this._product, "2 for " + this.Argument, -discountN);
+                return new Discount(this._product, "2 for " + this._amount, -discountN);
             }
             return null;
         }

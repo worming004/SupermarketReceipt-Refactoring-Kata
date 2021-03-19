@@ -14,13 +14,11 @@ namespace SupermarketReceipt
         protected SupermarketCatalog _catalog;
 
         public SpecialOfferType OfferType { get; private set; }
-        public double Argument { get; }
 
-        public Offer(SpecialOfferType offerType, SupermarketCatalog catalog, Product product, double argument)
+        public Offer(SpecialOfferType offerType, SupermarketCatalog catalog, Product product)
         {
             OfferType = offerType;
             _catalog = catalog;
-            Argument = argument;
             _product = product;
         }
 
@@ -35,7 +33,7 @@ namespace SupermarketReceipt
                 case SpecialOfferType.TenPercentDiscount:
                     return new TenPercentOffer(catalog, product, argument);
                 case SpecialOfferType.ThreeForTwo:
-                    return new ThreeForTwoOffer(catalog, product, argument);
+                    return new ThreeForTwoOffer(catalog, product);
                 default:
                     return null;
             }
