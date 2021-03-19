@@ -1,9 +1,9 @@
 ﻿namespace SupermarketReceipt
 {
-    public class TenPercentDiscount : Offer
+    public class TenPercentOffer : Offer
     {
 
-        public TenPercentDiscount(SupermarketCatalog catalog, Product product, double argument) : base(SpecialOfferType.TenPercentDiscount, catalog, product, argument)
+        public TenPercentOffer(SupermarketCatalog catalog, Product product, double argument) : base(SpecialOfferType.TenPercentDiscount, catalog, product, argument)
         {
 
         }
